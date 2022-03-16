@@ -1,0 +1,1 @@
+module.exports.nitroBases = ['A','G','C','T'];
