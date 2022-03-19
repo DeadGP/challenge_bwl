@@ -1,12 +1,16 @@
 const validator  = require('./validator.js');
 const matrix     = require('./matrix.js');
 
+
+//Se extraen las diagonales de la matriz
 const extractDiags = (matriz) => {
 
   let tiras = [];
 
+  //Diagonal superior
   matriz.forEach((col,i) => tiras.push(matrix.extractDiagSupCol(matriz,i)) );
 
+  //Diagonal inferior
   matriz.forEach((row,i)=>{ 
 
     if (i>0)
@@ -18,6 +22,8 @@ const extractDiags = (matriz) => {
 
 }
 
+
+//Se extraen las columnas
 const extractCols = (matriz)=>{
 
   return matriz.map((col,i) => matrix.extractCol(matriz,i) );
@@ -25,12 +31,14 @@ const extractCols = (matriz)=>{
 }
 
 
+//Se extraen las filas
 const extractRows = (matriz)=>{
 
   return matriz.map((col,i) => matrix.extractRow(matriz,i) );
 
 }
 
+//Se verifica las secuencias consecutivas
 const checkConsecutive = (lineArray,tope) => {
 
   let last   = '';
@@ -58,11 +66,15 @@ const checkConsecutive = (lineArray,tope) => {
 
 module.exports.hasMutation = (matriz)=>{
 
+    //Se obtienen las diagonales
     let diags = extractDiags(matriz);
 
+    //Se traen las columnas
     let cols  = extractCols(matriz);
 
+    //Se traen las filas
     let rows  = extractRows(matriz);
 
+    //Se filtran las filas que son consecutivas
     return ( [...diags,...cols,...rows].find((line) => checkConsecutive(line,4)).length > 0);
 }
